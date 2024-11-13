@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body class="body">
+    <h1 class="catalog-title">Каталог продуктов</h1>
+    <ul class="product-list">
+        {% for product in products %}
+            <li class="product-item">
+                <h2 class="product-title">{{ product.title }}</h2>
+                <p class="product-description">{{ product.description }}</p>
+                <p class="product-price">Цена: {{ product.price }} Руб.</p>
+                <img class="product-image" src="{{ product.image.url }}" alt="{{ product.title }}">
+                
+                <form method="post" action="{% url 'add_to_cart' product.id %}" class="product-form">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" class="quantity-input" value="1" min="1" required>
+                    <button type="submit" class="cart-button">Добавить в корзину</button>
+                </form>
+                
+                <form method="post" action="{% url 'add_to_wishlist' product.id %}" class="product-form">
+                    {% csrf_token %}
+                    <button type="submit" class="wishlist-button">Добавить в избранное</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}" class="pagination-link">Назад</a>
+        {% endif %}
+        <span class="pagination-info">Страница {{ products.number }} из {{ products.paginator.num_pages }}</span>
+        {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}" class="pagination-link">Вперед</a>
+        {% endif %}
+    </div>
+    <a href="{% url 'wishlist' %}" class="wishlist-link">Перейти в избранное</a>
+</body>
+</html>

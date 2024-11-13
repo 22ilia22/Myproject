@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добро пожаловать</title>
+    <link rel="stylesheet" href="{% load static %}">
+</head>
+<body class="body-background">
+    <header class="header-container">
+        <div class="nav">
+            <img src="icon.png" alt="icon" class="nav-icon">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="{% url 'catalog' %}" class="nav-link">Каталог</a></li>
+                <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Регистрация</a></li>
+            </ul>
+        </div>
+    </header>
+    <main class="main-container">
+        <h1 class="main-title">Добро Пожаловать в Интернет Магазин YM</h1>
+        <p class="main-description">Общая информация о магазине будет здесь.</p>
+        <img src="welcome_image.jpg" alt="Welcome Image" class="welcome-image">
+    </main>
+    <footer class="footer-container">
+        <p class="footer-contact">Контакты: info@ymstore.com | +123456789</p>
+    </footer>
+    <script src="{% static 'scripts.js' %}"></script>
+</body>
+</html>

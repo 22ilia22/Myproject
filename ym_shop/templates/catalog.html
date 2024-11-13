@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог</title>
+</head>
+<body>
+    <h1>Каталог продуктов</h1>
+    <ul>
+        {% for product in products %}
+            <li>
+                <h2>{{ product.title }}</h2>
+                <p>{{ product.description }}</p>
+                <p>Цена: {{ product.price }} Руб.</p>
+                <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                <form method="post" action="{% url 'add_to_cart' product.id %}">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="1" min="1" required>
+                    <button type="submit">Добавить в корзину</button>
+                </form>
+                <form method="post" action="{% url 'add_to_wishlist' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Добавить в избранное</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <div>
+        {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}">Назад</a>
+        {% endif %}
+        <span>Страница {{ products.number }} из {{ products.paginator.num_pages }}</span>
+        {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}">Вперед</a>
+        {% endif %}
+    </div>
+    <a href="{% url 'wishlist' %}">Перейти в избранное</a>
+</body>
+</html>

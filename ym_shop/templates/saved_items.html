@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Ваш товар</title>
+</head>
+<body class="body-background">
+    <header class="header-container">
+        <h1 class="header-title">Ваш товар</h1>
+    </header>
+    <main class="main-container">
+        {% if saved_items %}
+            <ul class="items-list">
+                {% for item in saved_items %}
+                    <li class="item-listing">{{ item.title }} - <span class="item-price">{{ item.price }} ₽</span></li>
+                {% endfor %}
+            </ul>
+            <p class="total-price">Итого: <span class="total-price-amount">{{ total_price }} ₽</span></p>
+        {% else %}
+            <p class="no-items-message">Нет отложенных товаров.</p>
+        {% endif %}
+    </main>
+</body>
+</html>

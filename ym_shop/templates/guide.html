@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Справочник и инструкции</title>
+</head>
+<body class="body-background">
+    <header class="header-container">
+        <h1 class="header-title">Справочник и инструкции</h1>
+    </header>
+    <main class="main-container">
+        <section class="how-to-use-container">
+            <h2 class="section-title">Как пользоваться сайтом</h2>
+            <img src="{% static 'how-to-use.jpg' %}" alt="Как пользоваться сайтом" class="section-image" />
+            <p class="section-text">Текст с инструкцией, советами и рекомендациями.</p>
+        </section>
+        <aside class="left-image-container">
+            <img src="{% static 'left-image.jpg' %}" alt="Картинка" class="left-image">
+        </aside>
+        <section class="feedbacks-container">
+            <h2 class="section-title">Отзывы и оценки пользователей</h2>
+            <form method="POST" action="{% url 'rating' %}" class="section-form">
+                {% csrf_token %}
+                <select name="rating" class="section-select">
+                    <option value="">Оцените наш сайт</option>
+                    <option value="1">1 звезда</option>
+                    <option value="2">2 звезды</option>
+                    <option value="3">3 звезды</option>
+                    <option value="4">4 звезды</option>
+                    <option value="5">5 звезд</option>
+                </select>
+                <button type="submit" class="submit-button">Отправить</button>
+            </form>
+
+            <div id="reviews" style="display: none;" class="reviews-block">
+                {% for review in reviews %}
+                <p class="review-text">{{ review.text }}</p>
+                <p class="review-rating">Оценка: {{ review.rating }}/5</p>
+                <p class="review-author">Автор: {{ review.user.name }}</p>
+                <p class="review-date">Дата публикации: {{ review.created_at }}</p>
+                {% endfor %}
+            </div>
+
+            <button onclick="document.getElementById('reviews').style.display='block'" class="show-reviews-button">Показать отзывы</button>
+        </section>
+        <aside class="right-image-container">
+            <img src="{% static 'right-image.jpg' %}" alt="Картинка" class="right-image">
+        </aside>
+        <section class="feedback-form-container">
+            <h2 class="section-title">Книга жалоб и предложений</h2>
+            <form method="POST" action="{% url 'feedback' %}" class="section-form">
+                {% csrf_token %}
+                <input type="text" name="subject" placeholder="Тема сообщения" required class="input-field">
+                <textarea name="text" placeholder="Текст сообщения" required class="textarea-field"></textarea>
+                <button type="submit" class="submit-button">Отправить</button>
+            </form>
+        </section>
+    </main>
+    <footer class="footer-container">
+        <button class="scroll-top-button">Наверх</button>
+    </footer>
+</body>
+</html>

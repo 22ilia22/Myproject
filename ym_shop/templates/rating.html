@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Рейтинг</title>
+</head>
+<body class="body-background">
+    <div class="container">
+        <h1 class="form-title">Оставьте свою оценку</h1> 
+        <form method="post" class="review-form"> 
+            {% csrf_token %} 
+            {{ form.as_p }}
+            <button type="submit" class="submit-button">Отправить</button> 
+        </form>
+
+        <h2 class="reviews-title">Отзывы:</h2> 
+        <ul class="reviews-list"> 
+            {% for review in reviews %} 
+            <li class="review-item"> 
+                <strong class="review-rating">Рейтинг: {{ review.rating }}</strong> 
+                <p class="review-text">{{ review.text }}</p> 
+                <div class="review-actions">
+                    <a href="{% url 'edit_review' review.id %}" class="edit-link">Редактировать</a> 
+                    <a href="{% url 'delete_review' review.id %}" class="delete-link">Удалить</a> 
+                </div>
+            </li> 
+            {% endfor %} 
+        </ul>
+    </div>
+</body>
+</html>

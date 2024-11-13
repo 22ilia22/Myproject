@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать отзыв</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+        <div class="edit-review-container">
+            <h2 class="edit-review-title">Редактировать отзыв</h2>
+            <form method="POST" class="edit-review-form">
+                {% csrf_token %}
+                {{ form.as_p|safe }}
+                <button type="submit" class="update-button">Обновить отзыв</button>
+            </form>
+        </div>
+    {% endblock %}
+</body>
+</html>

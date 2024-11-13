@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Регистрация</title>
+</head>
+<body class="body-background">
+    <div class="registration-container">
+        <h1 class="registration-title">Зарегистрируйтесь</h1> 
+        <form method="POST" class="registration-form"> 
+            {% csrf_token %} 
+            {{ form.as_p }}
+            <button type="submit" class="registration-button">Зарегистрироваться</button> 
+            <a href="{% url 'login' %}" class="login-link">Войти</a> 
+        </form> 
+    </div> 
+    <script src="{% static 'scripts.js' %}"></script> 
+</body> 
+</html>

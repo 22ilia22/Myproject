@@ -1,0 +1,20 @@
+<!DOCTYPE html> 
+<html lang="ru"> 
+<head> 
+ <meta charset="UTF-8"> 
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+ <title>Избранное</title> 
+</head> 
+<body> 
+ <h1 class="wishlist-title">Ваше избранное</h1> 
+ <ul class="wishlist-items"> 
+ {% for item in wishlist_items %} 
+ <li class="wishlist-item"> 
+ <h2 class="product-title">{{ item.product.title }}</h2> 
+ <a class="remove-link" href="{% url 'remove_from_wishlist' item.product.id %}">Убрать из избранного</a> 
+ </li> 
+ {% endfor %} 
+ </ul> 
+ <a class="catalog-link" href="{% url 'catalog' %}">Перейти в каталог</a> 
+</body> 
+</html>
